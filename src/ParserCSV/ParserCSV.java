@@ -72,22 +72,25 @@ public class ParserCSV {
 
     public static void main(String[] args) {
         parseFile("conferences_data.csv");
+//        parseFile("test.csv");
 
         //------------ number of participants of more than one conference------------//
-        int sumOfAllElementsInSets = 0;
+        Set<String> set = new HashSet<>();
+        Set<String> moreThanOneConferenceParticipants = new HashSet<>();
+        List<String> all = new ArrayList<>();
 
         for (int i = 0; i < conferencesMembers.size(); i++) {
-            sumOfAllElementsInSets += conferencesMembers.get(i).size();
+            all.addAll(conferencesMembers.get(i));
         }
 
-        Set<String> unionOfSets = new HashSet<>();
-        for (int i = 0; i < conferencesMembers.size(); i++) {
-            unionOfSets.addAll(conferencesMembers.get(i));
+        for (String s : all){
+            if (set.contains(s)){
+                moreThanOneConferenceParticipants.add(s);
+            }
+            set.add(s);
         }
-        int sumOfUniqueElementsInSets = unionOfSets.size();
 
-        int membersOfMoreThanOneConference = sumOfAllElementsInSets - sumOfUniqueElementsInSets;
-        System.out.println(membersOfMoreThanOneConference);
+        System.out.println(moreThanOneConferenceParticipants.size());
 
         //------------ number of WOK participants------------//
         int numberOfWokMembers  = wokMembers.size();
